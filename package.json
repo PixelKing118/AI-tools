@@ -1,13 +1,13 @@
 {
     "name": "testsite1",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A Node.js website using Express for serving static files",
     "main": "app.js",
     "scripts": {
       "start": "node app.js",
       "start:pm2": "pm2 start app.js --name testsite1",
-      "stop:pm2": "pm2 stop my-website",
-      "restart:pm2": "pm2 restart my-website"
+      "stop:pm2": "pm2 stop testsite1",
+      "restart:pm2": "pm2 restart testsite1"
     },
     "author": "Noah",
     "license": "MIT",
