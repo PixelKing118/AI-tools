@@ -4,7 +4,16 @@ const path = require('path');
 
 // Initialize the Express app
 const app = express();
-const PORT = 80; // Default HTTP port; you can change this if needed
+const PORT = process.env.PORT || 80; // Default HTTP port; you can change this if needed
+
+// Redirect HTTP to HTTPS
+app.use((req, res, next) => {
+  if (req.secure) {
+      next();
+  } else {
+      res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+});
 
 // Serve static files from the "public" directory (create this folder)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -13,11 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html')); // Change to your main HTML file
 });
-
-// Additional routes (add if you have more pages, such as an About page)
-// app.get('/about', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'public', 'about.html'));
-// });
 
 // Start the server and listen on the specified port
 app.listen(PORT, '0.0.0.0', () => {
